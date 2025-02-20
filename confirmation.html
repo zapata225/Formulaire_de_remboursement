@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmation de Remboursement - Destockage Alimentaire</title>
+    <style>
+        /* Reset basic styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background: #001f3f; /* Fond bleu foncé */
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Alignement en haut */
+            min-height: 100vh; /* Hauteur minimale de la vue */
+            margin: 0;
+            overflow: hidden; /* Supprime la barre de défilement */
+        }
+
+        .confirmation-container {
+            background: #fff; /* Cadre blanc */
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            width: 450px;
+            text-align: center;
+            overflow: hidden; /* Pour rogner les coins du logo */
+            opacity: 0;
+            animation: fadeIn 1s ease-out forwards;
+            margin-top: 0; /* Pas de marge en haut */
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .logo-container {
+            width: 100%;
+            height: 200px; /* Hauteur du logo ajustée */
+            overflow: hidden; /* Pour rogner les coins */
+            border-top-left-radius: 20px; /* Coins arrondis en haut */
+            border-top-right-radius: 20px; /* Coins arrondis en haut */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #f0f0f0; /* Fond léger pour le logo */
+        }
+
+        .logo {
+            width: 100%; /* Le logo occupe toute la largeur */
+            height: auto; /* Hauteur automatique pour conserver les proportions */
+            object-fit: contain; /* Assure que l'ensemble du logo est visible */
+            border-top-left-radius: 20px; /* Coins arrondis en haut */
+            border-top-right-radius: 20px; /* Coins arrondis en haut */
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05); /* Effet de zoom au survol */
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #333;
+            margin: 20px 0;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-family: 'Arial Black', sans-serif; /* Titres en Arial Black */
+        }
+
+        p {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 30px;
+            line-height: 1.6;
+            padding: 0 20px; /* Espacement latéral */
+        }
+
+        .thank-you {
+            font-size: 18px;
+            color: #007bff;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .home-button {
+            width: calc(100% - 40px); /* Largeur moins les marges */
+            padding: 16px;
+            background: linear-gradient(135deg, #007bff, #0056b3);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease;
+            margin: 0 20px 20px 20px; /* Marges pour l'espacement */
+        }
+
+        .home-button:hover {
+            background: linear-gradient(135deg, #0056b3, #004494);
+            transform: scale(1.05);
+        }
+
+        .home-button:active {
+            transform: scale(1.02);
+        }
+    </style>
+    <!-- Ajout des icônes modernes via Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+
+    <div class="confirmation-container">
+        <div class="logo-container">
+            <img class="logo" src="https://destockagealimentaireprixbas.com/wp-content/uploads/2024/04/Destockage-Alimentaire-2.gif" alt="Logo Destockage Alimentaire">
+        </div>
+        <h1>Confirmation de Remboursement</h1>
+        <p>Votre remboursement sera effectué sous <strong>5 à 7 jours ouvrés</strong>. Nous vous remercions pour votre confiance et votre patience.</p>
+        <p class="thank-you">Merci pour votre confiance,<br>L'équipe Destockage Alimentaire</p>
+        <button class="home-button" onclick="window.location.href='https://destockagealimentaireprixbas.com'">Retour à l'accueil</button>
+    </div>
+
+</body>
+
+</html>

