@@ -9,7 +9,7 @@
     <style>
         body {
             font-family: 'Open Sans', sans-serif;
-            background: linear-gradient(135deg, #f4f4f4, #e0e0e0);
+            background: linear-gradient(135deg, #1a2a4e, #1e3c72); /* Fond bleu plus foncé */
             margin: 0;
             padding: 0;
             display: flex;
@@ -26,16 +26,6 @@
             to { opacity: 1; }
         }
 
-        .header-logo {
-            width: 100%; /* Prend toute la largeur */
-            height: auto;
-            max-height: 150px; /* Hauteur maximale pour éviter que le logo ne soit trop grand */
-            object-fit: cover;
-            margin-bottom: 20px;
-            border-radius: 0; /* Pas de bordure arrondie pour un look large */
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-        }
-
         .refund-container {
             background: #fff;
             padding: 40px;
@@ -46,11 +36,27 @@
             text-align: center;
             opacity: 0;
             animation: fadeInContainer 1s ease-out 0.5s forwards;
+            position: relative;
         }
 
         @keyframes fadeInContainer {
             from { opacity: 0; }
             to { opacity: 1; }
+        }
+
+        .header-logo {
+            width: 100%; /* Prend toute la largeur */
+            height: auto; /* Hauteur automatique pour garder les proportions */
+            object-fit: cover; /* Garde le logo proportionnel */
+            margin-bottom: 20px;
+            border-radius: 15px; /* Bordure arrondie pour un look moderne */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Ombre portée pour un effet moderne */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .header-logo:hover {
+            transform: scale(1.02); /* Légère animation au survol */
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3); /* Ombre plus prononcée au survol */
         }
 
         h2 {
@@ -230,9 +236,10 @@
 </head>
 <body>
 
-    <img src="https://destockagealimentaireprixbas.com/wp-content/uploads/2024/04/Destockage-Alimentaire-2.gif" alt="Logo de l'entreprise" class="header-logo">
-
     <div class="refund-container">
+        <!-- Logo en pleine largeur en haut du cadre blanc -->
+        <img src="https://destockagealimentaireprixbas.com/wp-content/uploads/2024/04/Destockage-Alimentaire-2.gif" alt="Logo de l'entreprise" class="header-logo">
+
         <h2>Demande de Remboursement</h2>
 
         <!-- Formulaire avec méthode POST -->
@@ -255,6 +262,11 @@
             <div class="input-container">
                 <i class="fas fa-phone"></i>
                 <input type="tel" id="phone" name="phone" placeholder="Numéro de téléphone">
+            </div>
+
+            <div class="input-container">
+                <i class="fas fa-building"></i>
+                <input type="text" id="siren" name="siren" placeholder="Numéro SIREN (optionnel)">
             </div>
 
             <div class="input-container">
@@ -317,6 +329,7 @@
 
         <!-- Section des conditions de remboursement -->
         <div class="refund-conditions">
+            <p><i class="fas fa-info-circle"></i>Connexion à votre compte bancaire : Pour recevoir un remboursement, vous devez être connecté à votre compte bancaire via la plateforme. Nous vous demanderons de lier votre compte bancaire sécurisé à votre profil utilisateur pour faciliter les remboursements.</p>
             <p><i class="fas fa-info-circle"></i>Nous offrons un remboursement complet pour les produits retournés dans les 30 jours suivant l'achat, à condition qu'ils soient dans leur état d'origine. Les frais de retour sont à la charge du client, sauf en cas de produit défectueux ou erreur de notre part. Les produits personnalisés et périssables ne sont pas remboursables. Pour toute demande, veuillez nous fournir une preuve d'achat. Le remboursement sera effectué selon la méthode de paiement initiale dans un délai de 7 à 10 jours ouvrables.</p>
             <p><i class="fas fa-info-circle"></i>Pour plus d'informations sur les conditions de remboursement, veuillez consulter notre <a href="https://support.stripe.com/questions/refund-requests-for-a-purchase-made-through-a-business-using-stripe?locale=fr-FR" target="_blank">page de remboursement</a>.</p>
         </div>
